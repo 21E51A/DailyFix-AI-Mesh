@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+sqlalchemy
+transformers
+sentence-transformers
+faiss-cpu
+pydantic
+#pip install passlib[bcrypt]
+#pip uninstall bcrypt -y
+#pip install bcrypt==4.0.1
+#pip install python-multipart
