@@ -1,8 +1,10 @@
-- hosts: bastion
-  become: yes
+- name: Configure Bastion Host
+  hosts: bastion
+  become: true
+
   roles:
     - common
-    - docker
     - awscli
+    - docker
     - kubectl
     - helm
