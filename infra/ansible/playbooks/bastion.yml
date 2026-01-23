@@ -1,10 +1,11 @@
 - name: Configure Bastion Host
   hosts: bastion
-  become: true
+  become: yes
+  connection: local
 
   roles:
     - common
-    - awscli
     - docker
+    - awscli
     - kubectl
     - helm
