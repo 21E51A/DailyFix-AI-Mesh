@@ -1,0 +1,135 @@
+##################################
+# OS / Editor
+##################################
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+##################################
+# Node / React / Next.js
+##################################
+node_modules/
+dist/
+build/
+.next/
+out/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-lock.yaml
+.env
+.env.local
+.env.production
+.env.development
+
+##################################
+# Python / FastAPI
+##################################
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+.env
+.venv
+venv/
+ENV/
+env/
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.mypy_cache/
+coverage/
+htmlcov/
+
+##################################
+# FastAPI runtime
+##################################
+*.log
+uvicorn.log
+
+##################################
+# Database
+##################################
+*.db
+*.sqlite3
+postgres-data/
+mysql-data/
+
+##################################
+# Terraform
+##################################
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+terraform.tfvars
+.crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+##################################
+# Ansible
+##################################
+*.retry
+ansible.cfg
+inventory.ini
+inventory.yaml
+group_vars/*
+host_vars/*
+!group_vars/example.yml
+!host_vars/example.yml
+
+##################################
+# Docker
+##################################
+*.pid
+docker-compose.override.yml
+
+##################################
+# Kubernetes / EKS
+##################################
+kubeconfig
+*.kubeconfig
+.kube/
+
+##################################
+# ArgoCD / Jenkins
+##################################
+argocd-secret.yaml
+jenkins-secrets.yaml
+secrets.yaml
+
+##################################
+# Security / Secrets
+##################################
+*.pem
+*.key
+*.crt
+*.pfx
+*.jks
+*.env.*
+secrets/
+aws-credentials.txt
+
+##################################
+# Logs & Reports
+##################################
+logs/
+reports/
+coverage-reports/
+
+##################################
+# AI / ML
+##################################
+models/
+checkpoints/
+embeddings/
+vector-store/
+faiss-index/
+pinecone-data/

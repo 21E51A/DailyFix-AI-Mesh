@@ -1,0 +1,8 @@
+- hosts: bastion
+  become: yes
+  roles:
+    - common
+    - docker
+    - awscli
+    - kubectl
+    - helm

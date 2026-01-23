@@ -1,36 +1,33 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+from pydantic import BaseModel
 
 from app.db.database import get_db
-from app.db import models
-from app.schemas.user import UserCreate, UserResponse
+from app.models.user import User
 from app.core.security import hash_password
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
-@router.post("/", response_model=UserResponse)
+# ✅ Pydantic schema
+class UserCreate(BaseModel):
+    name: str
+    email: str
+    password: str
+
+@router.post("/")
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
+    db_user = db.query(User).filter(User.email == user.email).first()
+    if db_user:
+        return {"detail": "Email already registered"}
 
-    existing_user = db.query(models.User).filter(
-        models.User.email == user.email
-    ).first()
-
-    if existing_user:
-        raise HTTPException(status_code=400, detail="Email already registered")
-
-    db_user = models.User(
+    new_user = User(
         name=user.name,
         email=user.email,
-        hashed_password=hash_password(user.password)
+        hashed_password=hash_password(user.password),
     )
 
-    db.add(db_user)
+    db.add(new_user)
     db.commit()
-    db.refresh(db_user)
+    db.refresh(new_user)
 
-    return db_user
-
-
-@router.get("/", response_model=list[UserResponse])
-def list_users(db: Session = Depends(get_db)):
-    return db.query(models.User).all()
+    return {"message": "User registered successfully"}

@@ -25,9 +25,10 @@ SessionLocal = sessionmaker(
     bind=engine
 )
 
+# ✅ SINGLE SOURCE OF TRUTH
 Base = declarative_base()
 
-# ✅ THIS WAS MISSING (causing hanging requests)
+# ✅ Dependency for FastAPI
 def get_db():
     db = SessionLocal()
     try:

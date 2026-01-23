@@ -1,0 +1,12 @@
+- name: Update system
+  yum:
+    name: "*"
+    state: latest
+
+- name: Install basic packages
+  yum:
+    name:
+      - git
+      - curl
+      - unzip
+    state: present
