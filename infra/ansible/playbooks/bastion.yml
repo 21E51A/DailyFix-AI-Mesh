@@ -1,8 +1,6 @@
----
 - name: Configure Bastion Host
   hosts: bastion
   become: yes
-
   roles:
     - common
     - docker
