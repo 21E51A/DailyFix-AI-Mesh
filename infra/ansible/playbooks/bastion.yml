@@ -1,7 +1,7 @@
+---
 - name: Configure Bastion Host
   hosts: bastion
   become: yes
-  connection: local
 
   roles:
     - common

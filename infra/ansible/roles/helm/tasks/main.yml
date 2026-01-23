@@ -1,3 +1,4 @@
+---
 - name: Download Helm
   get_url:
     url: https://get.helm.sh/helm-v3.14.2-linux-amd64.tar.gz

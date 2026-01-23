@@ -1,13 +1,14 @@
+---
 - name: Install Docker
-  yum:
+  dnf:
     name: docker
     state: present
 
-- name: Start and enable Docker
+- name: Enable and start Docker
   service:
     name: docker
     state: started
-    enabled: true
+    enabled: yes
 
 - name: Add ec2-user to docker group
   user:

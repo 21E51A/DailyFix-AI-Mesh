@@ -1,10 +1,16 @@
+---
 - name: Update system packages
-  yum:
+  dnf:
     name: "*"
     state: latest
 
+- name: Remove curl-minimal (Amazon Linux 2023 fix)
+  dnf:
+    name: curl-minimal
+    state: absent
+
 - name: Install basic packages
-  yum:
+  dnf:
     name:
       - git
       - curl
