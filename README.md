@@ -16,5 +16,10 @@ after run this command --> docker images
 
 after creatig docker images push this docker images into ECR  
 
+to run docker images inside the kubernetes run this commands
+kubectl apply -f infra/kubernetes/backend/secret.yaml -n dailyfix
+kubectl apply -f infra/kubernetes/backend/deployment.yaml -n dailyfix
+kubectl apply -f infra/kubernetes/backend/service.yaml -n dailyfix
+
 to delete pods inisde the kubernetes 
 kubectl delete pods -n dailyfix -l app=backend --->backend

@@ -5,10 +5,10 @@ transformers
 sentence-transformers
 faiss-cpu
 pydantic
+email-validator
 python-dotenv
 passlib[bcrypt]
 python-jose
 pymysql
 python-multipart
 bcrypt==4.0.1
-pydantic[email]
