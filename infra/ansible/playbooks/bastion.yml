@@ -1,5 +1,4 @@
-- name: Configure Bastion Host
-  hosts: bastion
+- hosts: bastion
   become: yes
   roles:
     - common
