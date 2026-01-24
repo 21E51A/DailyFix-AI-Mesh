@@ -1,5 +1,8 @@
-- hosts: bastion
+- name: Configure Bastion Host
+  hosts: localhost
+  connection: local
   become: yes
+
   roles:
     - common
     - docker
