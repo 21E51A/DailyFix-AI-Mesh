@@ -5,21 +5,28 @@ WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# system deps
+# System deps
 RUN apt-get update && apt-get install -y \
     build-essential \
     git \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
+# Upgrade pip
+RUN pip install --upgrade pip
+
+# Copy requirements
 COPY requirements.txt .
 
-# IMPORTANT: CPU-only torch index
-RUN pip install --upgrade pip && \
-    pip install --no-cache-dir \
-    --index-url https://download.pytorch.org/whl/cpu \
-    -r requirements.txt
+# 🔥 Install PyTorch CPU explicitly (NO CUDA)
+RUN pip install --no-cache-dir \
+    torch torchvision torchaudio \
+    --index-url https://download.pytorch.org/whl/cpu
 
+# 🔥 Install rest from PyPI
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy app
 COPY . .
 
 EXPOSE 8000
