@@ -4,8 +4,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 from urllib.parse import quote_plus
 from dotenv import load_dotenv
 
-# ✅ REQUIRED FOR LOCAL RUN
-load_dotenv()
+load_dotenv()  # works locally, ignored in k8s
 
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD_RAW = os.getenv("DB_PASSWORD")
@@ -23,12 +22,16 @@ DATABASE_URL = (
     f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 )
 
-engine = create_engine(DATABASE_URL, echo=True)
+engine = create_engine(
+    DATABASE_URL,
+    pool_pre_ping=True,     # ✅ avoids stale connections
+    pool_recycle=3600,
+)
 
 SessionLocal = sessionmaker(
     autocommit=False,
     autoflush=False,
-    bind=engine
+    bind=engine,
 )
 
 Base = declarative_base()

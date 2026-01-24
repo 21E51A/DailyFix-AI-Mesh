@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.db.database import Base, engine
 
-# IMPORT MODELS (DO NOT REMOVE)
+# IMPORT MODELS (REQUIRED)
 from app.models import user, task
 
 from app.api.auth import router as auth_router
@@ -14,13 +14,20 @@ from app.api.dashboard import router as dashboard_router
 from app.api.ai import router as ai_router
 from app.api.health import router as health_router
 
-Base.metadata.create_all(bind=engine)
-
 app = FastAPI(title="DailyFix AI Mesh", version="1.0.0")
+
+# ✅ CREATE TABLES AFTER APP STARTS
+@app.on_event("startup")
+def startup_event():
+    try:
+        Base.metadata.create_all(bind=engine)
+        print("✅ Database connected & tables created")
+    except Exception as e:
+        print("❌ Database connection failed:", e)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],   # ALLOW FRONTEND SERVICE
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
