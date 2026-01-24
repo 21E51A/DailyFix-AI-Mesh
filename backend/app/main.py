@@ -8,6 +8,7 @@ from app.db.database import Base, engine
 # 🔹 Import models FIRST
 from app.models import user, task
 
+
 # 🔹 Import routers
 from app.api.auth import router as auth_router
 from app.api.users import router as users_router
