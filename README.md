@@ -15,3 +15,6 @@ simarlly after creating backend docker image go to frontend --> DailyFix-AI-Mesh
 after run this command --> docker images
 
 after creatig docker images push this docker images into ECR  
+
+to delete pods inisde the kubernetes 
+kubectl delete pods -n dailyfix -l app=backend --->backend
