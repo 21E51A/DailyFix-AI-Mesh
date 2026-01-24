@@ -113,7 +113,7 @@ secrets.yaml
 *.crt
 *.pfx
 *.jks
-*.env.*
+#*.env.*
 secrets/
 aws-credentials.txt
 
@@ -127,7 +127,7 @@ coverage-reports/
 ##################################
 # AI / ML
 ##################################
-models/
+#models/
 checkpoints/
 embeddings/
 vector-store/
