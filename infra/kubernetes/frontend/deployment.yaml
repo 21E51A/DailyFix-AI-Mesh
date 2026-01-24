@@ -18,4 +18,3 @@ spec:
           image: 281627750861.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
           ports:
             - containerPort: 80
-
