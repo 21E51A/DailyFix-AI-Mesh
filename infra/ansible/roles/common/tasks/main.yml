@@ -3,6 +3,7 @@
   dnf:
     name: "*"
     state: latest
+    update_cache: yes
 
 - name: Remove curl-minimal (Amazon Linux 2023 fix)
   dnf:
@@ -12,7 +13,8 @@
 - name: Install basic packages
   dnf:
     name:
-      - git
       - curl
+      - git
       - unzip
+      - yum-utils
     state: present
