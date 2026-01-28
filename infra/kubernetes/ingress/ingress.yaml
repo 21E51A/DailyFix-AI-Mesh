@@ -2,24 +2,21 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: dailyfix-ingress
-  namespace: dailyfix
+  namespace: dailyfix   # 🔥 THIS IS THE KEY FIX
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
   rules:
     - http:
         paths:
-          # 🔹 Backend API
-          - path: /api
+          - path: /api(/|$)(.*)
             pathType: Prefix
             backend:
               service:
                 name: backend
                 port:
                   number: 8000
-
-          # 🔹 Frontend
           - path: /
             pathType: Prefix
             backend:
