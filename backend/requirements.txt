@@ -1,14 +1,25 @@
-fastapi
-uvicorn
-sqlalchemy
-transformers
-sentence-transformers
-faiss-cpu
-pydantic
-email-validator
 python-dotenv
 passlib[bcrypt]
 python-jose
 pymysql
 python-multipart
 bcrypt==4.0.1
+
+cryptography
+
+fastapi
+uvicorn
+sqlalchemy
+transformers
+email-validator
+sentence-transformers
+faiss-cpu
+pydantic
+python-dotenv
+passlib[bcrypt]
+python-jose
+pymysql
+#pip install passlib[bcrypt]
+#pip uninstall bcrypt -y
+#pip install bcrypt==4.0.1
+#pip install python-multipart

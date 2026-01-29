@@ -77,7 +77,7 @@ override.tf.json
 # Ansible
 ##################################
 *.retry
-ansible.cfg
+#ansible.cfg
 inventory.ini
 inventory.yaml
 group_vars/*
