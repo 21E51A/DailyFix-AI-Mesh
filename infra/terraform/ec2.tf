@@ -1,6 +1,6 @@
 resource "aws_instance" "bastion" {
   ami                         = "ami-0ced6a024bb18ff2e"
-  instance_type               = "t3.medium"
+  instance_type               = "t2.xlarge"
   subnet_id                   = aws_subnet.public-1.id
   key_name                    = "mykeyec2"
   associate_public_ip_address = true
