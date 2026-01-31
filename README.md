@@ -25,3 +25,5 @@ to delete pods inisde the kubernetes
 kubectl delete pods -n dailyfix -l app=backend --->backend
 kubectl scale deployment backend --replicas=0 -n dailyfix --> delete replica 
 
+
+inside the new_server  cd ~/matrix/synapse
