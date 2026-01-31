@@ -1,4 +1,7 @@
-def analyze_task(title: str, description: str | None):
+from typing import Optional
+
+def analyze_task(title: str, description: Optional[str]):
+
     title_lower = title.lower()
 
     if "urgent" in title_lower or "asap" in title_lower:
