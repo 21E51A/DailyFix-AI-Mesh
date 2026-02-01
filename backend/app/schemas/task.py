@@ -10,7 +10,7 @@ class TaskCreate(BaseModel):
 
 class TaskUpdate(BaseModel):
     status: Optional[str] = None
-    progress: Optional[int] = None
+    progress: Optional[int] = None   # ✅ ADD THIS
 
 
 class TaskResponse(BaseModel):
@@ -18,7 +18,7 @@ class TaskResponse(BaseModel):
     title: str
     description: Optional[str]
     status: str
-    progress: int
+    progress: int                  # ✅ ADD THIS
     priority: Optional[str]
     estimated_effort: Optional[str]
     ai_summary: Optional[str]
