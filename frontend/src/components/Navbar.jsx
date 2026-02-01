@@ -12,7 +12,7 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <h2>DailyFix</h2>
+      <h2>FocusDesk</h2>
 
       <div className="navbar-right">
         <Link to="/" className="nav-link">Dashboard</Link>
