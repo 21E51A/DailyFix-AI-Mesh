@@ -7,11 +7,11 @@ export default function Tasks() {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Load tasks
   useEffect(() => {
     loadTasks();
   }, []);
 
+  // Load tasks
   const loadTasks = async () => {
     try {
       const res = await api.get("/tasks/");
@@ -21,9 +21,12 @@ export default function Tasks() {
     }
   };
 
-  // Create task
+  // Add task
   const addTask = async () => {
-    if (!title.trim()) return alert("Enter task title");
+    if (!title.trim()) {
+      alert("Enter task title");
+      return;
+    }
 
     try {
       setLoading(true);
@@ -39,7 +42,6 @@ export default function Tasks() {
       loadTasks();
     } catch (err) {
       alert("Failed to create task");
-      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -48,31 +50,24 @@ export default function Tasks() {
   // Update status
   const updateStatus = async (id, status) => {
     try {
-      await api.put(`/tasks/${id}`, {
-        status,
-      });
-
+      await api.put(`/tasks/${id}`, { status });
       loadTasks();
     } catch (err) {
-      alert("Failed to update task");
-      console.error(err);
+      alert("Update failed");
     }
   };
 
   // Update progress
   const updateProgress = async (id, progress) => {
     try {
-      await api.put(`/tasks/${id}`, {
-        progress,
-      });
-
+      await api.put(`/tasks/${id}`, { progress });
       loadTasks();
     } catch (err) {
       console.error(err);
     }
   };
 
-  // Delete task
+  // Delete
   const deleteTask = async (id) => {
     if (!window.confirm("Delete this task?")) return;
 
@@ -80,7 +75,7 @@ export default function Tasks() {
       await api.delete(`/tasks/${id}`);
       loadTasks();
     } catch (err) {
-      alert("Failed to delete task");
+      alert("Delete failed");
     }
   };
 
@@ -89,7 +84,7 @@ export default function Tasks() {
 
       <h2>📋 My Tasks</h2>
 
-      {/* Create Task */}
+      {/* Add Task */}
       <div style={{ marginBottom: "20px" }}>
 
         <input
@@ -97,7 +92,7 @@ export default function Tasks() {
           placeholder="Task title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          style={{ width: "300px", marginRight: "10px" }}
+          style={{ width: "250px", marginRight: "10px" }}
         />
 
         <input
@@ -105,7 +100,7 @@ export default function Tasks() {
           placeholder="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          style={{ width: "300px", marginRight: "10px" }}
+          style={{ width: "250px", marginRight: "10px" }}
         />
 
         <button onClick={addTask} disabled={loading}>
@@ -114,7 +109,7 @@ export default function Tasks() {
 
       </div>
 
-      {/* Task List */}
+      {/* Task Table */}
       <table border="1" cellPadding="10" width="100%">
 
         <thead>
@@ -128,59 +123,83 @@ export default function Tasks() {
 
         <tbody>
 
-          {tasks.map((task) => (
-            <tr key={task.id}>
+          {tasks.map((task) => {
 
-              <td>{task.title}</td>
+            const isDone =
+              task.status === "completed" ||
+              task.status === "cancelled";
 
-              {/* Status */}
-              <td>{task.status}</td>
+            return (
+              <tr key={task.id}>
 
-              {/* Progress */}
-              <td>
+                <td>{task.title}</td>
 
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={task.progress || 0}
-                  onChange={(e) =>
-                    updateProgress(task.id, Number(e.target.value))
-                  }
-                />
+                {/* Status */}
+                <td>
+                  {task.status === "completed" && "✅ Completed"}
+                  {task.status === "cancelled" && "❌ Cancelled"}
+                  {task.status === "pending" && "⏳ Pending"}
+                  {task.status === "in_progress" && "🚧 In Progress"}
+                </td>
 
-                <span> {task.progress || 0}%</span>
+                {/* Progress */}
+                <td>
 
-              </td>
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={task.progress || 0}
+                    disabled={isDone}
+                    onChange={(e) =>
+                      updateProgress(
+                        task.id,
+                        Number(e.target.value)
+                      )
+                    }
+                  />
 
-              {/* Actions */}
-              <td>
+                  <span> {task.progress || 0}%</span>
 
-                <button
-                  onClick={() => updateStatus(task.id, "completed")}
-                  style={{ marginRight: "5px" }}
-                >
-                  ✅ Complete
-                </button>
+                </td>
 
-                <button
-                  onClick={() => updateStatus(task.id, "cancelled")}
-                  style={{ marginRight: "5px" }}
-                >
-                  ❌ Cancel
-                </button>
+                {/* Actions */}
+                <td>
 
-                <button
-                  onClick={() => deleteTask(task.id)}
-                  style={{ color: "red" }}
-                >
-                  🗑 Delete
-                </button>
+                  <button
+                    disabled={isDone}
+                    onClick={() =>
+                      updateStatus(task.id, "completed")
+                    }
+                  >
+                    ✅ Complete
+                  </button>
 
-              </td>
+                  <button
+                    disabled={isDone}
+                    onClick={() =>
+                      updateStatus(task.id, "cancelled")
+                    }
+                    style={{ marginLeft: "5px" }}
+                  >
+                    ❌ Cancel
+                  </button>
 
-            </tr>
-          ))}
+                  <button
+                    onClick={() => deleteTask(task.id)}
+                    style={{
+                      marginLeft: "5px",
+                      color: "red"
+                    }}
+                  >
+                    🗑 Delete
+                  </button>
+
+                </td>
+
+              </tr>
+            );
+          })}
 
         </tbody>
 
