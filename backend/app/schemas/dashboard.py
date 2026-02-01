@@ -1,6 +1,7 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
+
 
 class DashboardResponse(BaseModel):
-    message: str
-    user_id: int
-    email: EmailStr
+    total_tasks: int
+    completed: int
+    pending: int
