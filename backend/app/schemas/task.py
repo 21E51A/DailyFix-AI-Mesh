@@ -10,16 +10,21 @@ class TaskCreate(BaseModel):
 
 class TaskUpdate(BaseModel):
     status: Optional[str] = None
+    progress: Optional[int] = None
 
 
 class TaskResponse(BaseModel):
     id: int
     title: str
     description: Optional[str]
+
     status: str
+    progress: int
+
     priority: Optional[str]
     estimated_effort: Optional[str]
     ai_summary: Optional[str]
+
     created_at: datetime
 
     class Config:
