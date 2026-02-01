@@ -24,6 +24,9 @@ class Task(Base):
 
     ai_summary = Column(Text, nullable=True)
 
+    # NEW FIELD: Default task or not
+    is_default = Column(Integer, default=0)  # 0 = No, 1 = Yes
+
     owner_id = Column(Integer, ForeignKey("users.id"), nullable=False)
 
     created_at = Column(DateTime(timezone=True), server_default=func.now())
