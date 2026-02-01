@@ -1,10 +1,10 @@
 import { createContext, useContext, useState } from "react";
 
-const AuthContext = createContext();
+export const AuthContext = createContext(); // ✅ EXPORT
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(
-    localStorage.getItem("token") ? true : false
+    !!localStorage.getItem("token")
   );
 
   const login = (token) => {

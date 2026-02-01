@@ -3,25 +3,22 @@ import api from "../api/axios";
 
 export default function Dashboard() {
   const [stats, setStats] = useState(null);
-  const [loading, setLoading] = useState(true);
 
-  const loadStats = async () => {
-    try {
-      const res = await api.get("/dashboard");
-      setStats(res.data);
-    } catch (err) {
-      console.error("Failed to load dashboard", err);
-    } finally {
-      setLoading(false);
-    }
+  const load = async () => {
+    const res = await api.get("/dashboard");
+    setStats(res.data);
   };
 
   useEffect(() => {
-    loadStats();
+    load();
+
+    // Auto refresh every 5 sec
+    const interval = setInterval(load, 5000);
+
+    return () => clearInterval(interval);
   }, []);
 
-  if (loading) return <p>Loading...</p>;
-  if (!stats) return <p>No data</p>;
+  if (!stats) return <p>Loading...</p>;
 
   return (
     <div className="dashboard">
